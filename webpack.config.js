@@ -24,7 +24,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true,
+              // modules: true,  // antd必须去掉此项才有样式
               importLoaders: 1,
               localIdentName: "[name]_[local]_[hash:base64]",
               sourceMap: true,

@@ -10,7 +10,7 @@ if (module.hot) {
 const Index = () => {
   return (
     <div className={style.background} style={{ background: 'green' }}>
-      {/* <Button type="danger">999</Button> */}
+      <Button type="danger">999</Button>
       <Button type="dashed">1111</Button>
     </div>
   )

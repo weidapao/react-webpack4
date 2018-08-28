@@ -40,31 +40,35 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: cssExtract.extract({
-          fallback: 'style-loader',
-          use: ['css-loader?minimize', 'postcss-loader'],
-          publicPath: '/dist'
-        }),
-        include: path.join(__dirname, './src'),
-        exclude: /node_modules/
-      },
-      {
-        test: /\.scss$/,
-        use: sassExtract.extract({
-          fallback: 'style-loader',
-          use: ['css-loader?minimize', 'sass-loader'],
-          publicPath: '/dist'
-        }),
-        include: path.join(__dirname, './src'),
-        exclude: /node_modules/
-      },
-      {
-        test: /\.less$/,
-        loader: lessExtract.extract({
-          use: ['css-loader?minimize', 'less-loader']
-        }),
-        include: path.join(__dirname, './src'),
-        exclude: /node_modules/
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              // Necessary for external CSS imports to work
+              // https://github.com/facebookincubator/create-react-app/issues/2677
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9' // React doesn't support IE8 anyway
+                  ],
+                  flexbox: 'no-2009'
+                })
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.(jpe?g|png|gif)$/,

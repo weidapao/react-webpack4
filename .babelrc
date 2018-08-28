@@ -1,6 +1,7 @@
 {
-  "presets": ["env","react"],
+  "presets": ["env","react","es2015"],
   "plugins": [
+    "transform-class-properties",
     [  "import",{"libraryName": "antd", "style": "css"}] // antd按需加载
   ]
 }
